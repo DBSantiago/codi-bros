@@ -1,7 +1,9 @@
 import sys
 import pygame
 
-from game.config import *
+from .config import *
+from .platform import Platform
+from .player import Player
 
 
 class Game():
@@ -20,7 +22,16 @@ class Game():
         self.new()
 
     def new(self):
+        self.generate_elements()
         self.run()
+
+    def generate_elements(self):
+        self.platform = Platform()
+        self.player = Player(100, self.platform.rect.top)
+
+        self.sprites = pygame.sprite.Group()
+        self.sprites.add(self.platform)
+        self.sprites.add(self.player)
 
     def run(self):
         while self.running:
@@ -36,7 +47,8 @@ class Game():
                 sys.exit()
 
     def draw(self):
-        pass
+        self.surface.fill(BLACK)
+        self.sprites.draw(self.surface)
 
     def update(self):
         pygame.display.flip()

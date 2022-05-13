@@ -1,4 +1,17 @@
+# Screen
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 400
 
 GAME_TITLE = "Codi Bros"
+
+# Colors
+BLACK = (0, 0, 0)
+GREEN = (69,  184, 61)
+BLUE = (78, 137, 193)
+
+# Platform
+PLATFORM_HEIGHT = 40
+
+# Player
+PLAYER_WIDTH = 40
+PLAYER_HEIGHT = 40
