@@ -1,6 +1,8 @@
 import sys
 import pygame
 
+from game.config import *
+
 
 class Game():
 
@@ -9,8 +11,8 @@ class Game():
 
         width = 800
         height = 400
-        self.surface = pygame.display.set_mode((width, height))
-        pygame.display.set_caption("Codi Bros")
+        self.surface = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+        pygame.display.set_caption(GAME_TITLE)
 
         self.running = True
 
