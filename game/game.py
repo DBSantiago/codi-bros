@@ -2,7 +2,7 @@ import sys
 import pygame
 
 
-def Game():
+class Game():
 
     def __init__(self):
         pygame.init()
@@ -13,7 +13,6 @@ def Game():
         pygame.display.set_caption("Codi Bros")
 
         self.running = True
-
 
     def start(self):
         self.new()
