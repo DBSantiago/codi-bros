@@ -11,8 +11,6 @@ class Game():
     def __init__(self):
         pygame.init()
 
-        width = 800
-        height = 400
         self.surface = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         pygame.display.set_caption(GAME_TITLE)
 
@@ -27,7 +25,7 @@ class Game():
 
     def generate_elements(self):
         self.platform = Platform()
-        self.player = Player(100, self.platform.rect.top)
+        self.player = Player(100, self.platform.rect.top - 200)
 
         self.sprites = pygame.sprite.Group()
         self.sprites.add(self.platform)
@@ -52,6 +50,8 @@ class Game():
 
     def update(self):
         pygame.display.flip()
+
+        self.sprites.update()
 
     def stop(self):
         pass
