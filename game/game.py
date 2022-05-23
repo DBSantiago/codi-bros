@@ -5,6 +5,8 @@ from .config import *
 from .platform import Platform
 from .player import Player
 
+clock = pygame.time.Clock()
+clock.tick(60)
 
 class Game():
 
@@ -43,6 +45,11 @@ class Game():
                 self.running = False
                 pygame.quit()
                 sys.exit()
+
+        pressed_key = pygame.key.get_pressed()
+
+        if pressed_key[pygame.K_SPACE] or pressed_key[pygame.K_UP]:
+            self.player.jump()
 
     def draw(self):
         self.surface.fill(BLACK)
