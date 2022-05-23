@@ -53,5 +53,7 @@ class Game():
 
         self.sprites.update()
 
+        self.player.validate_platform(self.platform)
+
     def stop(self):
         pass

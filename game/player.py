@@ -18,6 +18,13 @@ class Player(pygame.sprite.Sprite):
         self.pos_y = self.rect.bottom
         self.vel_y = 0
 
+    def validate_platform(self, platform):
+        collision = pygame.sprite.collide_rect(self, platform)
+
+        if collision:
+            self.vel_y = 0
+            self.pos_y = platform.rect.top
+
     def update_pos(self):
         self.vel_y += PLAYER_GRAVITY
         self.pos_y += self.vel_y + 0.5 * PLAYER_GRAVITY
