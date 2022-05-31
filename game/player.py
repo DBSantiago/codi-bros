@@ -28,6 +28,14 @@ class Player(pygame.sprite.Sprite):
         if objects:
             return objects[0]
 
+    def skid(self, wall):
+        self.pos_y = wall.rect.top
+        self.vel_y = 0
+        self.can_jump = True
+
+    def collide_bottom(self, wall):
+        return self.rect.colliderect(wall.rect_top)
+
     def validate_platform(self, platform):
         collision = pygame.sprite.collide_rect(self, platform)
 
