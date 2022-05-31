@@ -1,9 +1,11 @@
+import random
 import sys
 import pygame
 
 from .config import *
 from .platform import Platform
 from .player import Player
+from .wall import Wall
 
 clock = pygame.time.Clock()
 clock.tick(60)
@@ -17,6 +19,7 @@ class Game():
         pygame.display.set_caption(GAME_TITLE)
 
         self.running = True
+        self.playing = True
 
     def start(self):
         self.new()
@@ -29,9 +32,27 @@ class Game():
         self.platform = Platform()
         self.player = Player(100, self.platform.rect.top - 200)
 
+        self.walls = pygame.sprite.Group()
+
         self.sprites = pygame.sprite.Group()
         self.sprites.add(self.platform)
         self.sprites.add(self.player)
+
+        self.generate_walls()
+
+    def generate_walls(self):
+
+        last_position = SCREEN_WIDTH + 100
+
+        if not len(self.walls) > 0:
+            for _ in range(0, MAX_WALLS):
+                left = random.randrange(last_position + 200, last_position + 400)
+                wall = Wall(left, self.platform.rect.top)
+
+                last_position = wall.rect.right
+
+                self.sprites.add(wall)
+                self.walls.add(wall)
 
     def run(self):
         while self.running:
@@ -56,11 +77,24 @@ class Game():
         self.sprites.draw(self.surface)
 
     def update(self):
-        pygame.display.flip()
+        if self.playing:
+            pygame.display.flip()
+            pygame.time.delay(20)
 
-        self.sprites.update()
+            self.sprites.update()
 
-        self.player.validate_platform(self.platform)
+            self.player.validate_platform(self.platform)
+
+            wall = self.player.collide_width(self.walls)
+            if wall:
+                self.stop()
 
     def stop(self):
-        pass
+        self.player.stop()
+        self.stop_elements(self.walls)
+
+        self.playing = False
+
+    def stop_elements(self, elements):
+        for element in elements:
+            element.stop()
