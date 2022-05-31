@@ -81,13 +81,13 @@ class Game():
             pygame.display.flip()
             pygame.time.delay(20)
 
-            self.sprites.update()
-
-            self.player.validate_platform(self.platform)
-
             wall = self.player.collide_width(self.walls)
             if wall:
                 self.stop()
+
+            self.sprites.update()
+
+            self.player.validate_platform(self.platform)
 
     def stop(self):
         self.player.stop()
