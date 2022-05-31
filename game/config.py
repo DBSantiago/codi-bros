@@ -24,3 +24,6 @@ WALL_HEIGHT = 80
 WALL_SPEED = 5
 
 MAX_WALLS = 15
+
+#Game
+FPS = 60
