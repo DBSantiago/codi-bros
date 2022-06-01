@@ -39,6 +39,7 @@ class Game:
 
     def new(self):
         self.score = 0
+        self.level = 0
         self.generate_elements()
         self.run()
 
@@ -55,7 +56,6 @@ class Game:
         self.sprites.add(self.player)
 
         self.generate_walls()
-        self.generate_coins()
 
     def generate_walls(self):
 
@@ -71,19 +71,21 @@ class Game:
                 self.sprites.add(wall)
                 self.walls.add(wall)
 
+            self.level += 1
+            self.generate_coins()
+
     def generate_coins(self):
         last_position = SCREEN_WIDTH + 100
 
-        if not len(self.coins) > 0:
-            for _ in range(0, MAX_COINS):
-                pos_x = random.randrange(last_position + 180, last_position + 300)
+        for _ in range(0, MAX_COINS):
+            pos_x = random.randrange(last_position + 180, last_position + 300)
 
-                coin = Coin(pos_x, 150)
+            coin = Coin(pos_x, 150)
 
-                last_position = coin.rect.right
+            last_position = coin.rect.right
 
-                self.sprites.add(coin)
-                self.coins.add(coin)
+            self.sprites.add(coin)
+            self.coins.add(coin)
 
     def run(self):
         while self.running:
@@ -136,7 +138,6 @@ class Game:
 
             self.update_elements(self.walls)
             self.generate_walls()
-            self.generate_coins()
 
     def update_elements(self, elements):
         for element in elements:
@@ -166,7 +167,11 @@ class Game:
         self.surface.blit(text, rect)
 
     def draw_text(self):
-        self.display_text(self.score_format(), 36, GREEN, SCREEN_WIDTH // 2, 30)
+        self.display_text(self.score_format(), 36, GREEN, SCREEN_WIDTH * 0.875, 30)
+        self.display_text(self.level_format(), 36, GREEN, SCREEN_WIDTH * 0.125, 30)
 
     def score_format(self):
         return f"SCORE: {self.score}"
+
+    def level_format(self):
+        return f"LEVEL {self.level}"
