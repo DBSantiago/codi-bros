@@ -9,6 +9,7 @@ BLACK = (0, 0, 0)
 GREEN = (69,  184, 61)
 BLUE = (78, 137, 193)
 RED = (184, 61, 88)
+YELLOW = (255, 255, 0)
 
 # Platform
 PLATFORM_HEIGHT = 40
@@ -27,3 +28,10 @@ MAX_WALLS = 15
 
 #Game
 FPS = 60
+
+#Coin
+COIN_WIDTH = 20
+COIN_HEIGHT = 40
+COIN_SPEED = 5
+
+MAX_COINS = 20
