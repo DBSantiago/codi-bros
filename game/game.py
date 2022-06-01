@@ -34,6 +34,7 @@ class Game:
         pygame.mixer.music.play(-1, 0.0)
 
     def start(self):
+        self.menu()
         self.new()
 
     def new(self):
@@ -185,3 +186,27 @@ class Game:
 
     def level_format(self):
         return f"LEVEL {self.level}"
+
+    def menu(self):
+        self.surface.fill(GREEN_LIGHT)
+        self.display_text("Presiona una tecla para comenzar", 48, BLACK, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
+
+        pygame.display.flip()
+
+        self.wait()
+
+    def wait(self):
+        wait = True
+
+        while wait:
+            self.clock.tick(FPS)
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    wait = False
+                    self.running = False
+                    pygame.quit()
+                    sys.exit()
+
+                if event.type == pygame.KEYUP:
+                    wait = False

@@ -7,6 +7,7 @@ GAME_TITLE = "Codi Bros"
 # Colors
 BLACK = (0, 0, 0)
 GREEN = (69,  184, 61)
+GREEN_LIGHT = (61, 174, 87)
 BLUE = (78, 137, 193)
 RED = (184, 61, 88)
 RED_STRONG = (255, 0, 0)
