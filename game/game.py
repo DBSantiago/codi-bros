@@ -28,6 +28,10 @@ class Game:
         self.dir_sounds = os.path.join(self.dir, "assets/sounds")
         self.dir_images = os.path.join(self.dir, "assets/images")
 
+        pygame.mixer.music.load(os.path.join(self.dir_sounds, "codi_bros_Haggstrom.mp3"))
+        pygame.mixer.music.set_volume(0.1)
+        pygame.mixer.music.play(-1, 0.0)
+
     def start(self):
         self.new()
 
