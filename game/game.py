@@ -19,7 +19,6 @@ class Game:
         pygame.display.set_caption(GAME_TITLE)
 
         self.running = True
-        self.playing = True
 
         self.clock = pygame.time.Clock()
 
@@ -38,6 +37,7 @@ class Game:
         self.new()
 
     def new(self):
+        self.playing = True
         self.score = 0
         self.level = 0
         self.generate_elements()
@@ -105,6 +105,9 @@ class Game:
 
         if pressed_key[pygame.K_SPACE] or pressed_key[pygame.K_UP]:
             self.player.jump()
+
+        if pressed_key[pygame.K_r] and not self.playing:
+            self.new()
 
     def draw(self):
         self.surface.fill(BLACK)
@@ -175,6 +178,7 @@ class Game:
 
         if not self.playing:
             self.display_text("Perdiste!  =(", 60, RED_STRONG, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
+            self.display_text("Presiona R para comenzar de nuevo", 30, RED_STRONG, SCREEN_WIDTH // 2, SCREEN_HEIGHT * 0.25)
 
     def score_format(self):
         return f"SCORE: {self.score}"
