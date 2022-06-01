@@ -1,6 +1,7 @@
 import random
 import sys
 import pygame
+import os
 
 from .config import *
 from .platform import Platform
@@ -19,8 +20,13 @@ class Game:
 
         self.running = True
         self.playing = True
+        self.score = 0
 
         self.clock = pygame.time.Clock()
+
+        self.dir = os.path.dirname(__file__)
+        self.dir_sounds = os.path.join(self.dir, "assets/sounds")
+        self.dir_images = os.path.join(self.dir, "assets/images")
 
     def start(self):
         self.new()
@@ -107,6 +113,13 @@ class Game:
                 else:
                     self.stop()
 
+            coin = self.player.collide_width(self.coins)
+            if coin:
+                coin_sound = pygame.mixer.Sound(os.path.join(self.dir_sounds, "codi_bros_coin_sound.wav"))
+                coin_sound.play()
+                coin.kill()
+                self.score += 1
+
             self.sprites.update()
 
             self.player.validate_platform(self.platform)
@@ -123,6 +136,9 @@ class Game:
     def stop(self):
         self.player.stop()
         self.stop_elements(self.walls)
+
+        lose_sound = pygame.mixer.Sound(os.path.join(self.dir_sounds, "codi_bros_lose.wav"))
+        lose_sound.play()
 
         self.playing = False
 
