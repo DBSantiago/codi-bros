@@ -26,9 +26,12 @@ class Game:
         self.dir = os.path.dirname(__file__)
         self.dir_sounds = os.path.join(self.dir, "assets/sounds")
         self.dir_images = os.path.join(self.dir, "assets/images")
+        self.dir_fonts = os.path.join(self.dir, "assets/fonts")
+
+        self.font = pygame.font.match_font("RussoOne-Regular.ttf")
 
         pygame.mixer.music.load(os.path.join(self.dir_sounds, "rising_tide_-_antarctica.xm"))
-        pygame.mixer.music.set_volume(0.1)
+        pygame.mixer.music.set_volume(0.05)
         pygame.mixer.music.play(-1, 0.0)
 
     def start(self):
@@ -103,6 +106,9 @@ class Game:
 
     def draw(self):
         self.surface.fill(BLACK)
+
+        self.draw_text()
+
         self.sprites.draw(self.surface)
 
     def update(self):
@@ -149,3 +155,18 @@ class Game:
     def stop_elements(self, elements):
         for element in elements:
             element.stop()
+
+    def display_text(self, text, size, color, pos_x, pos_y):
+        font = pygame.font.Font(self.font, size)
+
+        text = font.render(text, True, color)
+        rect = text.get_rect()
+        rect.midtop = (pos_x, pos_y)
+
+        self.surface.blit(text, rect)
+
+    def draw_text(self):
+        self.display_text(self.score_format(), 36, GREEN, SCREEN_WIDTH // 2, 30)
+
+    def score_format(self):
+        return f"SCORE: {self.score}"
