@@ -20,7 +20,6 @@ class Game:
 
         self.running = True
         self.playing = True
-        self.score = 0
 
         self.clock = pygame.time.Clock()
 
@@ -36,6 +35,7 @@ class Game:
         self.new()
 
     def new(self):
+        self.score = 0
         self.generate_elements()
         self.run()
 
