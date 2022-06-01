@@ -91,8 +91,8 @@ class Game:
         while self.running:
             self.clock.tick(FPS)
             self.events()
-            self.draw()
             self.update()
+            self.draw()
 
     def events(self):
         for event in pygame.event.get():
@@ -113,31 +113,34 @@ class Game:
 
         self.sprites.draw(self.surface)
 
+        pygame.display.flip()
+
     def update(self):
-        if self.playing:
-            pygame.display.flip()
-            pygame.time.delay(20)
+        if not self.playing:
+            return
 
-            wall = self.player.collide_width(self.walls)
-            if wall:
-                if self.player.collide_bottom(wall):
-                    self.player.skid(wall)
-                else:
-                    self.stop()
+        pygame.time.delay(20)
 
-            coin = self.player.collide_width(self.coins)
-            if coin:
-                coin_sound = pygame.mixer.Sound(os.path.join(self.dir_sounds, "codi_bros_coin_sound.wav"))
-                coin_sound.play()
-                coin.kill()
-                self.score += 1
+        wall = self.player.collide_width(self.walls)
+        if wall:
+            if self.player.collide_bottom(wall):
+                self.player.skid(wall)
+            else:
+                self.stop()
 
-            self.sprites.update()
+        coin = self.player.collide_width(self.coins)
+        if coin:
+            coin_sound = pygame.mixer.Sound(os.path.join(self.dir_sounds, "codi_bros_coin_sound.wav"))
+            coin_sound.play()
+            coin.kill()
+            self.score += 1
 
-            self.player.validate_platform(self.platform)
+        self.sprites.update()
 
-            self.update_elements(self.walls)
-            self.generate_walls()
+        self.player.validate_platform(self.platform)
+
+        self.update_elements(self.walls)
+        self.generate_walls()
 
     def update_elements(self, elements):
         for element in elements:
@@ -167,8 +170,11 @@ class Game:
         self.surface.blit(text, rect)
 
     def draw_text(self):
-        self.display_text(self.score_format(), 36, GREEN, SCREEN_WIDTH * 0.875, 30)
-        self.display_text(self.level_format(), 36, GREEN, SCREEN_WIDTH * 0.125, 30)
+        self.display_text(self.score_format(), 36, GREEN, SCREEN_WIDTH * 0.875, 20)
+        self.display_text(self.level_format(), 36, GREEN, SCREEN_WIDTH * 0.125, 20)
+
+        if not self.playing:
+            self.display_text("Perdiste!  =(", 60, RED_STRONG, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
 
     def score_format(self):
         return f"SCORE: {self.score}"
