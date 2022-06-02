@@ -1,14 +1,14 @@
 import pygame
+import os
 
-from .config import COIN_WIDTH, COIN_HEIGHT, COIN_SPEED, YELLOW
+from .config import COIN_WIDTH, COIN_HEIGHT, COIN_SPEED
 
 
 class Coin(pygame.sprite.Sprite):
-    def __init__(self, pos_x, pos_y):
+    def __init__(self, pos_x, pos_y, dir_sprites):
         pygame.sprite.Sprite.__init__(self)
 
-        self.image = pygame.Surface((COIN_WIDTH, COIN_HEIGHT))
-        self.image.fill(YELLOW)
+        self.image = pygame.image.load(os.path.join(dir_sprites, "codi_bros_coin.png"))
 
         self.rect = self.image.get_rect()
         self.rect.x = pos_x

@@ -1,15 +1,15 @@
 import pygame
+import os
 
 from .config import PLAYER_GRAVITY, PLAYER_HEIGHT, PLAYER_WIDTH, BLUE
 
 
 class Player(pygame.sprite.Sprite):
 
-    def __init__(self, left, bottom):
+    def __init__(self, left, bottom, dir_sprites):
         pygame.sprite.Sprite.__init__(self)
 
-        self.image = pygame.Surface((PLAYER_WIDTH, PLAYER_HEIGHT))
-        self.image.fill(BLUE)
+        self.image = pygame.image.load(os.path.join(dir_sprites, "codi_bros_codi.png"))
 
         self.rect = self.image.get_rect()
         self.rect.left = left

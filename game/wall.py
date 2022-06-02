@@ -1,14 +1,14 @@
 import pygame
+import os
 
 from .config import WALL_WIDTH, WALL_HEIGHT, RED, WALL_SPEED
 
 
 class Wall(pygame.sprite.Sprite):
-        def __init__(self, left, bottom):
+        def __init__(self, left, bottom, dir_sprites):
             pygame.sprite.Sprite.__init__(self)
 
-            self.image = pygame.Surface((WALL_WIDTH, WALL_HEIGHT))
-            self.image.fill(RED)
+            self.image = pygame.image.load(os.path.join(dir_sprites, "codi_bros_wall.png"))
 
             self.rect = self.image.get_rect()
             self.rect.left = left

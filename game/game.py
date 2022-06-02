@@ -24,7 +24,7 @@ class Game:
 
         self.dir = os.path.dirname(__file__)
         self.dir_sounds = os.path.join(self.dir, "assets/sounds")
-        self.dir_images = os.path.join(self.dir, "assets/images")
+        self.dir_sprites = os.path.join(self.dir, "assets/sprites")
         self.dir_fonts = os.path.join(self.dir, "assets/fonts")
 
         self.font = pygame.font.match_font("RussoOne-Regular.ttf")
@@ -41,12 +41,13 @@ class Game:
         self.playing = True
         self.score = 0
         self.level = 0
+        self.background = pygame.image.load(os.path.join(self.dir_sprites, "codi_bros_bg.png"))
         self.generate_elements()
         self.run()
 
     def generate_elements(self):
         self.platform = Platform()
-        self.player = Player(100, self.platform.rect.top - 200)
+        self.player = Player(100, self.platform.rect.top - 200, self.dir_sprites)
 
         self.walls = pygame.sprite.Group()
 
@@ -65,7 +66,7 @@ class Game:
         if not len(self.walls) > 0:
             for _ in range(0, MAX_WALLS):
                 left = random.randrange(last_position + 200, last_position + 400)
-                wall = Wall(left, self.platform.rect.top)
+                wall = Wall(left, self.platform.rect.top, self.dir_sprites)
 
                 last_position = wall.rect.right
 
@@ -81,7 +82,7 @@ class Game:
         for _ in range(0, MAX_COINS):
             pos_x = random.randrange(last_position + 180, last_position + 300)
 
-            coin = Coin(pos_x, 150)
+            coin = Coin(pos_x, 120, self.dir_sprites)
 
             last_position = coin.rect.right
 
@@ -111,7 +112,7 @@ class Game:
             self.new()
 
     def draw(self):
-        self.surface.fill(BLACK)
+        self.surface.blit(self.background, (0, 0))
 
         self.draw_text()
 
