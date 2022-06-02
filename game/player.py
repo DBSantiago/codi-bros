@@ -9,7 +9,12 @@ class Player(pygame.sprite.Sprite):
     def __init__(self, left, bottom, dir_sprites):
         pygame.sprite.Sprite.__init__(self)
 
-        self.image = pygame.image.load(os.path.join(dir_sprites, "codi_bros_codi.png"))
+        self.images = (
+            pygame.image.load(os.path.join(dir_sprites, "codi_bros_codi.png")),
+            pygame.image.load(os.path.join(dir_sprites, "codi_bros_codijump.png"))
+        )
+
+        self.image = self.images[0]
 
         self.rect = self.image.get_rect()
         self.rect.left = left
@@ -32,6 +37,7 @@ class Player(pygame.sprite.Sprite):
         self.pos_y = wall.rect.top
         self.vel_y = 0
         self.can_jump = True
+        self.image = self.images[0]
 
     def collide_bottom(self, wall):
         return self.rect.colliderect(wall.rect_top)
@@ -44,10 +50,14 @@ class Player(pygame.sprite.Sprite):
             self.pos_y = platform.rect.top
             self.can_jump = True
 
+            self.image = self.images[0]
+
     def jump(self):
         if self.can_jump:
             self.vel_y = -23
             self.can_jump = False
+
+            self.image = self.images[1]
 
     def update_pos(self):
         if self.playing:
